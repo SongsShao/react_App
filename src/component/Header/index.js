@@ -1,15 +1,19 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import './index.css'
 
-function Header() {
-  return (
-    <>
-      <div className='title'>
-        <span className='titleLeft'>Songs</span>
-        <span className='titleRight'>走走停停！</span>
-      </div>
-    </>
-  )
+class Header extends React.Component {
+  state={}
+
+  render() {
+    return (
+      <>
+        <div className='title'>
+          <span className='titleLeft'>{this.props.header}</span>
+          <span className='titleRight'>走走停停！</span>
+        </div>
+      </>
+    )
+  }
 }
 
 export default Header

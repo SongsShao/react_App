@@ -1,4 +1,4 @@
-
+/* eslint-disable no-undef */
 const reg = /(((^https?:(?:\/\/)?)(?:[-;:&=\+\$,\w]+@)?[A-Za-z0-9.-]+|(?:www.|[-;:&=\+\$,\w]+@)[A-Za-z0-9.-]+)((?:\/[\+~%\/.\w-_]*)?\??(?:[-\+=&;%@.\w_]*)#?(?:[\w]*))?)$/g
 
 export function isUrl(path) {
@@ -57,4 +57,22 @@ function getRelation(str1, str2) {
     return 2
   }
   return 3
+}
+
+export function getStatusBarHeight() {
+  // let immersed = 0
+  // let ms = (/Html5Plus\/.+\s\(.*(Immersed\/(\d+\.?\d*).*)\)/gi).exec(navigator.userAgent)
+  // if (ms && ms.length >= 3) { // 当前环境为沉浸式状态栏模式
+  //   immersed = parseFloat(ms[2])// 获取状态栏的高度
+  // }
+  // return immersed
+
+  window.mui.plusReady(() => {
+    // 判断是否支持沉浸式
+    let isImmersedStatusbar = plus.navigator.isImmersedStatusbar()
+    console.log(isImmersedStatusbar)
+    // 获取系统状态栏高度
+    let StatusbarHeight = plus.navigator.getStatusbarHeight()
+    console.log(StatusbarHeight)
+  })
 }

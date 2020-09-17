@@ -1,5 +1,5 @@
 import React from 'react'
-import { Icon, Grid } from 'antd-mobile'
+import { Icon, Grid, Tabs } from 'antd-mobile'
 import { createFromIconfontCN } from '@ant-design/icons'
 import { AllRouterList } from '../../common/routerList'
 import './index.css'

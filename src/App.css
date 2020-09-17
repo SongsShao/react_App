@@ -1,5 +1,6 @@
-@import '~antd/dist/antd.css';
-@import "~antd-mobile/dist/antd-mobile.css";
+
+@import '../node_modules/antd/dist/antd.css';
+@import "../node_modules/antd-mobile/dist/antd-mobile.css";
 
 .App {
   text-align: center;
@@ -42,4 +43,8 @@
 
 .site-page-header{
   margin: 8px 2px;
+}
+
+.am-tab-bar{
+  display: contents;
 }

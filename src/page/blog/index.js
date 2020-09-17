@@ -9,7 +9,7 @@ class Blog extends React.Component {
   render() {
     return (
       <>
-        <iframe style={{ width: '100%', height: '93vh', border: 0 }} key src='https://songsshao.github.io/'></iframe>
+        <iframe style={{ width: '100%', height: document.documentElement.clientHeight - 100.5, border: 0 }} key src='https://songsshao.github.io/'></iframe>
       </>
     )
   }

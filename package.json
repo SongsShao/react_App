@@ -1,15 +1,19 @@
 {
-  "name": "antd-demo",
+  "name": "antd_mobile",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@ant-design/icons": "4.2.1",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
+    "@types/react-native": "^0.63.18",
     "@typescript-eslint/eslint-plugin": "^2.2.0",
     "@typescript-eslint/parser": "^2.2.0",
-    "antd": "^4.5.4",
+    "antd": "3.21.4",
     "antd-mobile": "^2.3.3",
+    "babel-plugin-import": "^1.13.0",
+    "customize-cra": "^1.0.0",
     "eslint": "^6.1.0",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-react-app": "^5.0.2",
@@ -22,16 +26,17 @@
     "eslint-plugin-shineyue": "0.0.2",
     "history": "^4.10.1",
     "react": "^16.13.1",
+    "react-app-rewired": "^2.1.6",
     "react-dom": "^16.13.1",
     "react-router-cache-route": "^1.9.0",
     "react-router-dom": "^5.2.0",
-    "react-scripts": "3.4.2"
+    "react-scripts": "3.4.3"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
+    "eject": "react-app-rewired eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -47,9 +52,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "babel-eslint": "^10.1.0"
   },
   "homepage": "./"
 }
