@@ -1,18 +1,12 @@
 import React from 'react'
-import { Icon, Grid, Tabs, Modal } from 'antd-mobile'
-import { createFromIconfontCN } from '@ant-design/icons'
+import { Grid, Tabs, Modal } from 'antd-mobile'
+import { Icon } from 'antd'
 import NavBarHeader from '../../component/NavBarHeader/index'
 import ComponentUI from './componentUI'
 import { AllRouterList } from '../../common/routerList'
 import { getRouter } from '../../common/routerCompponent'
 import './index.css'
 
-const IconFont = createFromIconfontCN({
-  scriptUrl: [
-    '//at.alicdn.com/t/font_1788044_0dwu4guekcwr.js', // icon-javascript, icon-java, icon-shoppingcart (overrided)
-    '//at.alicdn.com/t/font_1788592_a5xf2bdic3u.js', // icon-shoppingcart, icon-python
-  ],
-})
 class Index extends React.Component {
   state = { visible: false, name: null, routerData: {}}
   componentDidMount() {
@@ -46,7 +40,10 @@ class Index extends React.Component {
       if (item.type === 'menu') {
         return (
           <>
-            <div key={String(index)} className='sub-title'>{item.name}</div>
+            <div key={String(index)} className='sub-title'>
+              <Icon type={item.icon ? item.icon : 'android'} style={{ color: '#4A90E2', marginRight: '10px' }} />
+              {item.name}
+            </div>
             {this.grid(item)}
           </>
         )
@@ -58,7 +55,7 @@ class Index extends React.Component {
     console.log('item.children', value.children)
     if (value.children) {
       const data = value.children.map(val => ({
-        icon: <IconFont type={val.icon === undefined ? 'icon-java' : val.icon} />,
+        icon: <Icon type={val.icon ? val.icon : 'android'} style={{ color: '#4A90E2', fontSize: '24px' }} />,
         text: val.name,
         key: value.path + val.path,
         path: value.path + val.path
@@ -80,6 +77,8 @@ class Index extends React.Component {
           visible && (
             <Modal
               visible={visible}
+              platform='android'
+
             >
               <div>
 

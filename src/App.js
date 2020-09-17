@@ -69,25 +69,26 @@ class App extends React.Component {
               data-seed='logId'
             >
               <div>
-                <Blog />
+                <Main />
               </div>
             </TabBar.Item>
             <TabBar.Item
-              icon={icon('cloud')}
-              selectedIcon={icon('cloud')}
-              title='Cloud'
-              key='Cloud'
+              icon={icon('github')}
+              selectedIcon={icon('github')}
+              title='Github'
+              key='Github'
               badge={0}
-              selected={this.state.selectedTab === 'Cloud'}
+              selected={this.state.selectedTab === 'Github'}
               onPress={() => {
                 this.setState({
-                  selectedTab: 'Cloud',
+                  selectedTab: 'Github',
                 })
               }}
               data-seed='logId1'
             >
               <div>
-                <Test />
+                <Blog />
+
               </div>
             </TabBar.Item>
             <TabBar.Item
@@ -104,7 +105,8 @@ class App extends React.Component {
               }}
             >
               <div>
-                <Main />
+                暂未开发
+
               </div>
             </TabBar.Item>
             <TabBar.Item

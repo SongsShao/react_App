@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { NavBar, Modal } from 'antd-mobile'
 import { Icon } from 'antd'
+import './index.css'
 
 class NavBarHeader extends Component {
   state={
@@ -39,7 +40,7 @@ class NavBarHeader extends Component {
   render() {
     const { onClick } = this.props
     let rightContent = (
-      <div>
+      <div className='rightStyle'>
         <Icon type='share-alt' onClick={this.shareAlt} style={{ color: '#4A90E2', marginRight: '15px' }} />
         <Icon onClick={onClick} type='logout' style={{ color: '#4A90E2' }} />
       </div>

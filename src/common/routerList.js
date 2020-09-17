@@ -1,25 +1,36 @@
 export const AllRouterList = [
   {
-    icon: 'ie',
+    icon: 'android',
     name: '主页',
     type: 'menu',
     path: '/songs',
     children: [
       {
+        icon: 'android',
         type: 'view',
         path: '/main',
         name: '主页',
         component: '/main/index'
       },
       {
+        icon: 'github',
         type: 'view',
-        name: '博客',
+        name: 'Github',
         path: '/blog',
         component: '/blog/index'
-      },
+      }
+    ]
+  },
+  {
+    icon: 'setting',
+    name: '工具',
+    type: 'menu',
+    path: '/songs',
+    children: [
       {
+        icon: 'tool',
         type: 'view',
-        name: '测试',
+        name: '分辨率工具',
         path: '/test',
         component: '/test/index'
       }
