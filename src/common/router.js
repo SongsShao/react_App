@@ -97,6 +97,7 @@ class RouterList extends React.Component {
         }
         routerData[path] = router
       })
+      console.log('routerData', routerData)
       return routerData
     }
     render() {

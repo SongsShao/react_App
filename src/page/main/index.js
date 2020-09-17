@@ -1,7 +1,10 @@
 import React from 'react'
-import { Icon, Grid, Tabs } from 'antd-mobile'
+import { Icon, Grid, Tabs, Modal } from 'antd-mobile'
 import { createFromIconfontCN } from '@ant-design/icons'
+import NavBarHeader from '../../component/NavBarHeader/index'
+import ComponentUI from './componentUI'
 import { AllRouterList } from '../../common/routerList'
+import { getRouter } from '../../common/routerCompponent'
 import './index.css'
 
 const IconFont = createFromIconfontCN({
@@ -11,17 +14,29 @@ const IconFont = createFromIconfontCN({
   ],
 })
 class Index extends React.Component {
-  state = {}
+  state = { visible: false, name: null, routerData: {}}
+  componentDidMount() {
+    this.zetState('routerData', getRouter())
+  }
   onClick = v => {
-    window.baseHistory.jump({
-      path: v,
-      state: ''
+    this.setState({
+      visible: !this.state.visible
+    })
+  }
+
+  zetState = (index, val) => {
+    this.setState({
+      [index]: val
     })
   }
 
   btnOnclick = v => {
     console.log(v)
     if (v.path) {
+      this.setState({
+        name: v.text,
+        path: v.path
+      })
       this.onClick(v.path)
     }
   }
@@ -45,6 +60,7 @@ class Index extends React.Component {
       const data = value.children.map(val => ({
         icon: <IconFont type={val.icon === undefined ? 'icon-java' : val.icon} />,
         text: val.name,
+        key: value.path + val.path,
         path: value.path + val.path
       }))
       console.log('data', data)
@@ -53,11 +69,27 @@ class Index extends React.Component {
   }
 
   render() {
+    const { visible, name, routerData, path } = this.state
     let menu = this.listMenu(AllRouterList)
     console.log('menu', menu)
+
     return (
       <>
         {menu}
+        {
+          visible && (
+            <Modal
+              visible={visible}
+            >
+              <div>
+
+                <NavBarHeader title={name} onClick={this.onClick} />
+                <ComponentUI data={routerData[path]} />
+              </div>
+            </Modal>
+          )
+        }
+
       </>
     )
   }
