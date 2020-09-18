@@ -16,8 +16,17 @@ export const AllRouterList = [
         icon: 'github',
         type: 'view',
         name: 'Github',
-        path: '/blog',
-        component: '/blog/index'
+        path: '/Github',
+        url: 'https://songsshao.github.io/',
+        component: '/main/index'
+      },
+      {
+        icon: 'github',
+        type: 'view',
+        name: 'gui-jun.Github',
+        path: '/gui-jun.Github',
+        url: 'https://gui-jun.github.io/',
+        component: '/main/index'
       }
     ]
   },

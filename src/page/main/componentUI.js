@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/iframe-has-title */
 import React from 'react'
 
 class ComponentUI extends React.Component {
@@ -7,7 +8,15 @@ class ComponentUI extends React.Component {
       const { data } = this.props
       return (
         <>
-          <data.component props={this.props}></data.component>
+          {data.url
+            ? (
+              <iframe key
+                style={{ width: '100%', height: document.documentElement.clientHeight - 45.5, border: 0 }}
+                src={data.url}
+              >
+              </iframe>
+            ) : <data.component props={this.props}></data.component> }
+
         </>
       )
     }

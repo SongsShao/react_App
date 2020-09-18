@@ -92,15 +92,15 @@ class App extends React.Component {
               </div>
             </TabBar.Item>
             <TabBar.Item
-              icon={icon('team')}
-              selectedIcon={icon('team')}
-              title='Friend'
-              key='Friend'
+              icon={icon('question')}
+              selectedIcon={icon('question')}
+              title='Question'
+              key='Question'
               dot
-              selected={this.state.selectedTab === 'Friend'}
+              selected={this.state.selectedTab === 'Question'}
               onPress={() => {
                 this.setState({
-                  selectedTab: 'Friend',
+                  selectedTab: 'Question',
                 })
               }}
             >

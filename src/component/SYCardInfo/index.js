@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unused-prop-types */
 /* eslint-disable no-undef */
 import React, { Component } from 'react'
 import propTypes from 'prop-types'
@@ -8,19 +9,25 @@ class SYCardInfo extends Component {
       title: propTypes.string,
       btnOk: propTypes.string,
       btnCancel: propTypes.string,
+      btnFooterLeft: propTypes.string,
+      btnFooterRight: propTypes.string,
       rightContent: propTypes.element || propTypes.string,
       leftColor: propTypes.string,
       onRef: propTypes.func,
-      disFooter: propTypes.bool
+      disFooter: propTypes.bool,
+      btnFooter: propTypes.bool
     }
     static defaultProps={
       title: 'title',
       btnOk: '确定',
       btnCancel: '取消',
+      btnFooterLeft: '问题发布人： songshao',
+      btnFooterRight: '2020-9-18 17:25:02',
       rightContent: null,
       leftColor: '#4A90E2',
       onRef: ref => { },
-      disFooter: false
+      disFooter: false,
+      btnFooter: false
     }
     state={
       showLine: true,
@@ -80,7 +87,7 @@ class SYCardInfo extends Component {
 
     render() {
       let { showLine, stripVisible, showBtn, disContent, disFooter } = this.state
-      let { leftColor, btnOkStyle, padding, title, rightContent, children, btnOk, btnCancel } = this.props
+      let { leftColor, btnOkStyle, padding, title, rightContent, children, btnOk, btnCancel, btnFooterLeft, btnFooterRight, btnFooter } = this.props
       return (
         <>
           <div className={Style.contentHeaderDiv}>
@@ -98,7 +105,7 @@ class SYCardInfo extends Component {
             </div>
 
             {disContent && (
-              <div className={showLine && disFooter ? Style.contentBody : Style.contentBodyNoBorder}
+              <div className={showLine && (disFooter || btnFooter) ? Style.contentBody : Style.contentBodyNoBorder}
                 style={{ padding }}
               >
                 {children}
@@ -114,6 +121,18 @@ class SYCardInfo extends Component {
                 </div>
               </div>
             )}
+            {
+              btnFooter && (
+                <div className={showBtn ? Style.footerBtn : null}>
+                  <div className={Style.rightBtnStyleOk} onClick={this.btnOnClick} style={btnOkStyle && btnOkStyle}>
+                    {btnFooterLeft}
+                  </div>
+                  <div className={Style.rightBtnStyleCancel} onClick={this.cancelOnClick}>
+                    {btnFooterRight}
+                  </div>
+                </div>
+              )
+            }
           </div>
         </>
       )

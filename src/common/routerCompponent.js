@@ -9,7 +9,7 @@ function divisionRouterList(menuList) {
   let routerConfig = {}
   menuList.forEach(item => {
     if (item.type === 'view' && item.component) {
-      viewHandler('', item.path, item.component, routerConfig)
+      viewHandler('', item, routerConfig)
     } else if (item.type === 'menu' && item.children.length > 0 && !item.component) {
       menuHandler(item, routerConfig)
     }
@@ -17,17 +17,18 @@ function divisionRouterList(menuList) {
   return routerConfig
 }
 
-function viewHandler(oripath = '', path, component, routerConfig) {
-  console.log('path', path, component, COMPONENT_MAP)
-  routerConfig[oripath + path] = {
-    component: COMPONENT_MAP[`${component}`]
+function viewHandler(oripath = '', item, routerConfig) {
+  console.log('path', item, COMPONENT_MAP)
+  routerConfig[oripath + item.path] = {
+    component: COMPONENT_MAP[`${item.component}`],
+    url: item.url
   }
 }
 
 function menuHandler(a, routerConfig) {
   a.children.forEach(b => {
     if (b.type === 'view' && b.component) {
-      viewHandler(a.path, b.path, b.component, routerConfig)
+      viewHandler(a.path, b, routerConfig)
     } else if (b.type === 'menu' && b.children.length > 0 && !b.component) {
       let { path, ...rest } = b
       menuHandler({
@@ -85,6 +86,7 @@ export function getRouter (v) {
     router = {
       ...router,
       name: router.name || menuItem.name,
+      url: menuItem.url
     }
     routerData[path] = router
   })

@@ -80,7 +80,7 @@ class Index extends React.Component {
               platform='android'
 
             >
-              <div>
+              <div style={{ height: '100%' }}>
 
                 <NavBarHeader title={name} onClick={this.onClick} />
                 <ComponentUI data={routerData[path]} />
