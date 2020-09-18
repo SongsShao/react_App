@@ -8,7 +8,7 @@ import RouterList from './common/router'
 import MainLayout from './layouts/MainLayout'
 import Main from './page/main/index'
 import Blog from './page/blog/index'
-import Test from './page/test/index'
+import Question from './page/question/index'
 import My from './page/my/index'
 
 class App extends React.Component {
@@ -105,8 +105,7 @@ class App extends React.Component {
               }}
             >
               <div>
-                暂未开发
-
+                <Question />
               </div>
             </TabBar.Item>
             <TabBar.Item

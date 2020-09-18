@@ -1,0 +1,50 @@
+---
+name: SYCardInfo
+route: /SYCardInfo
+sidebar: true
+---
+
+import { SYCardInfo } from "../../";
+import { Playground, Props } from 'docz';
+import { Icon } from 'antd';
+
+# SYCardInfo Component
+
+## 卡片组件实例
+
+<Playground>
+    <SyCardInfo
+        title='小宝贝'
+        btnOk='抚摸'
+        btnCancel='暴扣'
+        disFooter
+        rightContent={(
+            <div>
+            <span>点击</span>
+            <Icon type='right' style={{ color: '#4A90E2' }} />
+            </div>
+        )}
+    >
+        这里是测试信息！
+    </SyCardInfo>
+
+</Playground>
+
+
+# SYCardInfo
+
+- 页面卡片组件。
+
+## API
+
+| 参数 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | --- |
+| title | 左边头信息 | String | title |
+| btnOk | 左边按钮名称 | String | 确定 |
+| btnCancel | 右边按钮名称 | String | 取消 |
+| OkOnClick | 左边点击事件 | function | - |
+| CancelOnClick |  右边点击事件 | function | - |
+| disFooter | 是否显示底部分割线 | boolean | false |
+| rightContent | 标题右边显示信息 | String or component | - |
+
+> 注意在使用SYCardInfo时 content info 信息可以直接使用组件包裹即可！
