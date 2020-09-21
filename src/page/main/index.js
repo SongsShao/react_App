@@ -17,6 +17,10 @@ class Index extends React.Component {
   }
 
   onClick = v => {
+    // window.baseHistory.jump({
+    //   path: v,
+    //   state: ''
+    // })
     this.setState({
       visible: !this.state.visible
     })
@@ -35,7 +39,7 @@ class Index extends React.Component {
       this.setState({
         path: v.path
       })
-      this.onClick()
+      this.onClick(v.path)
       // this.onRef.zetState('visible', true)
     }
   }

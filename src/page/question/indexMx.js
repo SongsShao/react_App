@@ -1,5 +1,5 @@
 import React from 'react'
-import { Skeleton, Comment, Tooltip, List, Avatar, Icon } from 'antd'
+import { Skeleton, Comment, Tooltip, List, Avatar, Icon, Input, Form, Button } from 'antd'
 import { WhiteSpace, Flex } from 'antd-mobile'
 import moment from 'moment'
 import Style from './index.module.less'
@@ -60,6 +60,17 @@ const dataComment = [
   },
 ]
 
+const { TextArea } = Input
+
+const CommentList = ({ comments }) => (
+  <List
+    dataSource={comments}
+    header={`${comments.length} ${comments.length > 1 ? 'replies' : 'reply'}`}
+    itemLayout='horizontal'
+    renderItem={props => <Comment {...props} />}
+  />
+)
+
 class IndexMx extends React.Component {
   state={
     data: {
@@ -68,7 +79,10 @@ class IndexMx extends React.Component {
       content: '“问题”（problem）这个词是由两个希腊词组成的： “pro”的意思是“向前”，“ballein”的意思是“投掷”。字面意思，就是“被向前投掷的东西“，理解为现实（是什么）和理想（应该是什么）之间的相差的结果，而且需要现在或将来采取行动。',
       auth: '问题发布人： songshao',
       time: '2020-9-18 17:25:02'
-    }
+    },
+    comments: [],
+    submitting: false,
+    value: 'Please enter your thoughts!'
   }
 
   componentDidMount() {
@@ -86,8 +100,53 @@ zetState = (index, val) => {
     console.log('点击事件', val)
   }
 
+  handleSubmit = () => {
+    if (!this.state.value) {
+      return
+    }
+
+    this.setState({
+      submitting: true,
+    })
+
+    setTimeout(() => {
+      this.setState({
+        submitting: false,
+        value: '',
+        comments: [
+          {
+            author: 'Han Solo',
+            avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
+            content: <p>{this.state.value}</p>,
+            datetime: moment().fromNow(),
+          },
+          ...this.state.comments,
+        ],
+      })
+    }, 1000)
+  };
+
+  handleChange = e => {
+    this.setState({
+      value: e.target.value,
+    })
+  };
   render() {
-    const { data } = this.state
+    const { data, comments, submitting, value } = this.state
+
+    const Editor = ({ onChange, onSubmit, submitting, value }) => (
+      <div>
+        <Form.Item>
+          <Input />
+          <TextArea rows={4} onBlur={onChange} defaultValue={value} />
+        </Form.Item>
+        <Form.Item>
+          <Button htmlType='submit' loading={submitting} onClick={onSubmit} type='primary'>
+            Add Comment
+          </Button>
+        </Form.Item>
+      </div>
+    )
 
     const Content = (
       <div>
@@ -159,6 +218,23 @@ replies
       <div className={Style.indexMx} style={{ height: '100%', overflowY: 'scroll' }}>
         {Content || <Skeleton active /> }
         {ConmentList}
+        {comments.length > 0 && <CommentList comments={comments} />}
+        <Comment
+          avatar={(
+            <Avatar
+              src='https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png'
+              alt='Han Solo'
+            />
+          )}
+          content={(
+            <Editor
+              onChange={this.handleChange}
+              onSubmit={this.handleSubmit}
+              submitting={submitting}
+              value={value}
+            />
+          )}
+        />
       </div>
     )
   }
