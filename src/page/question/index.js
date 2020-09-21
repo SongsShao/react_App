@@ -1,7 +1,8 @@
 import React from 'react'
-import { Icon } from 'antd'
+import { Skeleton } from 'antd'
 import { SearchBar } from 'antd-mobile'
 import SYCardInfo from '../../component/SYCardInfo/index'
+import ComponentUI from '../../component/songs/componentUI'
 
 class Index extends React.Component {
   state={
@@ -36,33 +37,44 @@ class Index extends React.Component {
         auth: '问题发布人： songshao',
         time: '2020-9-18 17:25:02'
       }
-    ]
+    ],
+    selectData: null
   }
 
   componentDidMount() {
     // this.autoFocusInst.focus()
   }
+
+  onCardClick = val => {
+    console.log('点击事件', val)
+    this.setState({
+      selectData: val
+    })
+  }
+
   render() {
-    const { data } = this.state
+    const { data, selectData } = this.state
     const Content = data.map((item, index) => (
-      <SYCardInfo
-        key={String(index)}
-        title={item.title}
-        rightContent={item.rightContent}
-        btnFooter
-        btnFooterLeft={item.auth}
-        btnFooterRight={item.time}
-      >
-        <div>{item.content}</div>
-      </SYCardInfo>
+      <div key={String(index)} onClick={() => this.onCardClick(item)}>
+        <SYCardInfo
+          title={item.title}
+          rightContent={item.rightContent}
+          btnFooter
+          btnFooterLeft={item.auth}
+          btnFooterRight={item.time}
+
+        >
+          <div>{item.content}</div>
+        </SYCardInfo>
+      </div>
     ))
     return (
       <div style={{ position: 'absolute', width: '100%' }}>
         <SearchBar placeholder='自动获取光标' style={{ position: 'relative' }} ref={ref => { this.autoFocusInst = ref }} />
         <div style={{ height: document.documentElement.clientHeight - 140, overflowY: 'scroll' }}>
-          {Content}
+          {Content || <Skeleton active />}
         </div>
-
+        {selectData && <ComponentUI visible selectData={selectData} onCanel={() => { this.setState({ selectData: null }) }} data={window.routerData['/test/questionMx']} />}
       </div>
     )
   }

@@ -1,21 +1,26 @@
 import React from 'react'
 import { Grid, Tabs, Modal } from 'antd-mobile'
 import { Icon } from 'antd'
-import NavBarHeader from '../../component/NavBarHeader/index'
-import ComponentUI from './componentUI'
+import ComponentUI from '../../component/songs/componentUI'
 import { AllRouterList } from '../../common/routerList'
-import { getRouter } from '../../common/routerCompponent'
 import './index.css'
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: window.iconurl
+})
+
 class Index extends React.Component {
-  state = { visible: false, name: null, routerData: {}}
-  componentDidMount() {
-    this.zetState('routerData', getRouter())
+  state = { visible: false,
   }
+  componentDidMount() {
+    this.zetState('routerData', window.routerData)
+  }
+
   onClick = v => {
     this.setState({
       visible: !this.state.visible
     })
+    console.log('visible', this.state.visible)
   }
 
   zetState = (index, val) => {
@@ -28,10 +33,10 @@ class Index extends React.Component {
     console.log(v)
     if (v.path) {
       this.setState({
-        name: v.text,
         path: v.path
       })
-      this.onClick(v.path)
+      this.onClick()
+      // this.onRef.zetState('visible', true)
     }
   }
 
@@ -41,7 +46,7 @@ class Index extends React.Component {
         return (
           <>
             <div key={String(index)} className='sub-title'>
-              <Icon type={item.icon ? item.icon : 'android'} style={{ color: '#4A90E2', marginRight: '10px' }} />
+              <IconFont type={item.icon ? item.icon : 'icon-android'} style={{ color: '#4A90E2', marginRight: '10px' }} />
               {item.name}
             </div>
             {this.grid(item)}
@@ -55,7 +60,7 @@ class Index extends React.Component {
     console.log('item.children', value.children)
     if (value.children) {
       const data = value.children.map(val => ({
-        icon: <Icon type={val.icon ? val.icon : 'android'} style={{ color: '#4A90E2', fontSize: '24px' }} />,
+        icon: <IconFont type={val.icon ? val.icon : 'icon-android'} style={{ color: '#4A90E2', fontSize: '24px' }} />,
         text: val.name,
         key: value.path + val.path,
         path: value.path + val.path
@@ -66,29 +71,14 @@ class Index extends React.Component {
   }
 
   render() {
-    const { visible, name, routerData, path } = this.state
+    const { path } = this.state
     let menu = this.listMenu(AllRouterList)
     console.log('menu', menu)
 
     return (
       <>
         {menu}
-        {
-          visible && (
-            <Modal
-              visible={visible}
-              platform='android'
-
-            >
-              <div style={{ height: '100%' }}>
-
-                <NavBarHeader title={name} onClick={this.onClick} />
-                <ComponentUI data={routerData[path]} />
-              </div>
-            </Modal>
-          )
-        }
-
+        { (window.routerData && window.routerData[path]) && <ComponentUI onCanel={() => { this.setState({ path: null }) }} visible data={window.routerData[path]} /> }
       </>
     )
   }

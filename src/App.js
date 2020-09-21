@@ -10,12 +10,18 @@ import Main from './page/main/index'
 import Blog from './page/blog/index'
 import Question from './page/question/index'
 import My from './page/my/index'
+import { getRouter } from './common/routerCompponent'
 
 class App extends React.Component {
   state = { selectedTab: 'Home', height: 0 }
   componentDidMount() {
+    this.zetState('height', document.documentElement.clientHeight - 46)
+    window.routerData = getRouter()
+  }
+
+  zetState = (index, val) => {
     this.setState({
-      height: document.documentElement.clientHeight - 46
+      [index]: val
     })
   }
 
