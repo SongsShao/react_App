@@ -5,6 +5,8 @@ import App from './App'
 import { history } from './utils/history'
 import * as serviceWorker from './serviceWorker'
 
+// document.writeln('<script src="./vconsole.min.js"></script>')
+
 ReactDOM.render(
   <React.StrictMode>
     <App history={history} />

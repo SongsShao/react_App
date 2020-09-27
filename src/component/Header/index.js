@@ -9,7 +9,10 @@ class Header extends React.Component {
       <>
         <div className='title'>
           <span className='titleLeft'>{this.props.header}</span>
-          <span className='titleRight'>走走停停！</span>
+          <span className='titleRight'>Stop and go straight forward！</span>
+          <div style={{ textAlign: 'right', float: 'right' }}>
+            {this.props.right && this.props.right}
+          </div>
         </div>
       </>
     )

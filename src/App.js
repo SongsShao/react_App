@@ -12,14 +12,19 @@ import Question from './page/question/index'
 import My from './page/my/index'
 import { getRouter } from './common/routerCompponent'
 
+const IconFont = Icon.createFromIconfontCN({
+  scriptUrl: window.iconurl
+})
+
 class App extends React.Component {
-  state = { selectedTab: 'Home', height: 0 }
+  state = { selectedTab: 'Home', height: 0, right: '' }
   componentDidMount() {
     this.zetState('height', document.documentElement.clientHeight - 46)
     window.routerData = getRouter()
   }
 
   zetState = (index, val) => {
+    console.log(index, val)
     this.setState({
       [index]: val
     })
@@ -30,18 +35,19 @@ class App extends React.Component {
   }
 
   render() {
-    const { headerData, selectedTab, height } = this.state
+    const { selectedTab, height, right } = this.state
     const { history } = this.props
     window.baseHistory = history
 
     const icon = val => (
-      <Icon style={{ width: '22px', height: '22px' }}
+      <IconFont style={{ width: '22px', height: '22px', paddingTop: '4px', fontSize: '16px' }}
         type={val}
       />
     )
+
     return (
       <div className='App'>
-        <SHeader header={selectedTab} />
+        <SHeader header={selectedTab} right={right} />
         <div style={{ height }}>
 
           {/* <Router history={history}>
@@ -63,24 +69,25 @@ class App extends React.Component {
             <TabBar.Item
               title='Home'
               key='Home'
-              icon={icon('home')}
-              selectedIcon={icon('home')}
+              icon={icon('icon-home4-copy')}
+              selectedIcon={icon('icon-home4')}
               selected={this.state.selectedTab === 'Home'}
               badge={0}
               onPress={() => {
                 this.setState({
                   selectedTab: 'Home',
+                  right: ''
                 })
               }}
               data-seed='logId'
             >
               <div>
-                <Main />
+                <Main right={data => this.zetState('right', '')} />
               </div>
             </TabBar.Item>
             <TabBar.Item
-              icon={icon('github')}
-              selectedIcon={icon('github')}
+              icon={icon('icon-github1-copy')}
+              selectedIcon={icon('icon-github1')}
               title='Github'
               key='Github'
               badge={0}
@@ -88,46 +95,55 @@ class App extends React.Component {
               onPress={() => {
                 this.setState({
                   selectedTab: 'Github',
+                  right: ''
                 })
               }}
               data-seed='logId1'
             >
               <div>
-                <Blog />
+                <Blog right={data => this.zetState('right', '')} />
 
               </div>
             </TabBar.Item>
             <TabBar.Item
-              icon={icon('question')}
-              selectedIcon={icon('question')}
+              icon={icon('icon-question-copy')}
+              selectedIcon={icon('icon-question')}
               title='Question'
               key='Question'
-              dot
+              badge={0}
               selected={this.state.selectedTab === 'Question'}
               onPress={() => {
                 this.setState({
                   selectedTab: 'Question',
+                  right: ''
                 })
               }}
             >
               <div>
-                <Question />
+                <Question right={data => this.zetState('right', '')} />
               </div>
             </TabBar.Item>
             <TabBar.Item
-              icon={icon('user')}
-              selectedIcon={icon('user')}
-              title='My'
-              key='My'
-              selected={this.state.selectedTab === 'My'}
+              icon={icon('icon-music1')}
+              selectedIcon={icon('icon-music1-copy')}
+              title='Music'
+              key='Music'
+              selected={this.state.selectedTab === 'Music'}
               onPress={() => {
                 this.setState({
-                  selectedTab: 'My',
+                  selectedTab: 'Music',
+                  right: this.state.rightData
                 })
               }}
             >
               <div>
-                <My />
+                <My right={data => {
+                  this.zetState('right', data)
+                  this.setState({
+                    rightData: data
+                  })
+                }}
+                />
               </div>
             </TabBar.Item>
           </TabBar>

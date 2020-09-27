@@ -1,4 +1,3 @@
-/* eslint-disable react/button-has-type */
 import React, { Component } from 'react'
 import { Icon } from 'antd'
 import { Progress, Flex } from 'antd-mobile'
@@ -18,10 +17,27 @@ class App extends Component {
       volume: 100,
       allTime: 0,
       currentTime: 0,
+      seek: 0,
+      data: {}
     }
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    const { data, id } = this.props
+    if (data) {
+      this.zetState('id', id)
+      this.zetState('data', data)
+    }
+    if (this.props.onRef) {
+      this.props.onRef(this)
+    }
+  }
+
+  zetState = (index, val) => {
+    this.setState({
+      [index]: val
+    })
+  }
 
   formatSecond(time) {
     const second = Math.floor(time % 60)
@@ -115,9 +131,20 @@ class App extends Component {
     })
   };
 
-  render() {
-    const { data, id } = this.props
+  onRefreshData = v => {
+    this.setState({
+      data: v,
+      currentTime: 0
+    })
+    setTimeout(() => {
+      const { id } = this.state
+      const audio = document.getElementById(`audio${id}`)
+      audio.load()
+      this.playAudio()
+    }, 2000)
+  }
 
+  render() {
     const {
       isPlay,
       isMuted,
@@ -126,16 +153,20 @@ class App extends Component {
       currentTime,
       rateList,
       playRate,
+      seek,
+      data,
+      id
     } = this.state
 
     return (
       <div className={style.Mp3Div}>
         <audio
           id={`audio${id}`}
-          src={data.src}
+          src={data.src && data.src}
           ref={audio => {
             this.audioDom = audio
           }}
+          seek={seek}
           preload='auto'
           onCanPlay={this.onCanPlay}
           onTimeUpdate={this.onTimeUpdate}
@@ -149,36 +180,31 @@ class App extends Component {
           unfilled
           position='normal'
         />
-        <Flex style={{ height: '45px', width: '100%' }}>
-          <Flex.Item>
-            <div>
-              <div style={{ width: '45px', height: '45px', float: 'left', lineHeight: '45px', marginLeft: '10px', position: 'relative' }}>
-                <img src={data.img} className={style.MpImage}></img>
+        <div style={{ height: '45px', width: '100%' }}>
+          <div style={{ height: '45px', width: '70%', float: 'left' }}>
+            <div style={{ width: '45px', height: '45px', float: 'left', lineHeight: '45px', marginLeft: '10px', position: 'relative' }}>
+              <img src={data.img && data.img} className={style.MpImage}></img>
+            </div>
+            <div style={{ height: '45px', float: 'left' }}>
+              <div style={{ fontSize: '14px', height: '25px', lineHeight: '25px', textAlign: 'left' }}>
+                {data.name && data.name}
               </div>
-              <div style={{ height: '45px', float: 'left' }}>
-                <div style={{ fontSize: '14px', height: '25px', lineHeight: '25px' }}>
-                  {data.name}
-                </div>
-                <div style={{ fontSize: '10px', height: '20px', lineHeight: '20px' }}>
-                  {data.auther}
-                </div>
+              <div style={{ fontSize: '10px', height: '20px', lineHeight: '20px', textAlign: 'left' }}>
+                {data.auther && data.auther}
               </div>
             </div>
+          </div>
 
-          </Flex.Item>
-          <Flex.Item style={{ textAlign: 'right', paddingRight: '10px', height: '45px', lineHeight: '55px' }}>
-            {/* <span style={{ paddingRight: '3px' }}>
-              {`${this.formatSecond(currentTime)}/${this.formatSecond(allTime)}`}
-            </span> */}
+          <div style={{ width: '30%', float: 'left', textAlign: 'right', paddingRight: '10px', height: '45px', lineHeight: '55px' }}>
             {isPlay ? (
               <IconFont type='icon-stop' style={{ fontSize: '25px', color: '#4A90E2' }} onClick={this.pauseAudio} />
             ) : (
               <IconFont type='icon-bofang' style={{ fontSize: '25px', color: '#4A90E2' }} onClick={this.playAudio} />
             )}
             <IconFont type='icon-liebiao' style={{ fontSize: '25px', color: '#4A90E2', paddingLeft: '13px' }} />
-          </Flex.Item>
+          </div>
 
-        </Flex>
+        </div>
 
       </div>
     )

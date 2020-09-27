@@ -5,6 +5,7 @@
         border-radius: 30px;
         position: absolute;
         top: 5px;
+        left: 0px;
         -webkit-animation: circle 5s infinite linear;
         @-webkit-keyframes circle{
             0%{
@@ -16,4 +17,41 @@
         }
     }
     
+}
+
+.Mp3List{
+    height: 40px;
+    padding-left: 0px;
+    :global {
+        .am-list-item{
+            min-height: 40px;
+            display: block;
+            padding-left: 0px;
+        }
+
+        .am-list-line-multiple{
+            padding: 0px;
+        }
+
+        .am-list-item .am-list-line{
+            display: block;
+            padding: 0px;
+        }
+
+        .am-list-item .am-list-line .am-list-arrow{
+            display: none;
+        }
+
+        
+        .am-list-line-multiple .am-list-arrow{
+            display: none;
+        }
+        .am-list-line-multiple::after{
+            display: none;
+        }
+        .am-list-line::after{
+            display: none !important;
+        }
+        
+    }
 }
