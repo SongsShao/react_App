@@ -100,7 +100,7 @@ class App extends Component {
   onTimeUpdate = () => {
     const { id } = this.props
     const audio = document.getElementById(`audio${id}`)
-
+    // console.log('bf onTimeUpdate刷新')
     this.setState({
       currentTime: audio.currentTime,
     })
@@ -108,6 +108,14 @@ class App extends Component {
       this.setState({
         isPlay: false,
       })
+    }
+
+    // console.log('this.props.next', this.props.next && audio.currentTime === this.state.allTime)
+
+    if (audio.currentTime === this.state.allTime) {
+      if (this.props.next) {
+        this.props.next(true)
+      }
     }
   };
 
