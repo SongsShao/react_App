@@ -146,6 +146,10 @@ class Index extends React.Component {
     this.onRef.onRefreshData(this.state.data)
   }
 
+  onTouchStart = v => {
+    console.log('onTouchStart', v)
+  }
+
   render() {
     const { data, dataList } = this.state
     const right = (
@@ -198,6 +202,7 @@ class Index extends React.Component {
               item.key = index
               return (
                 <Mp3List key={String(index)}
+                  onTouchStart={() => this.onTouchStart(item)}
                   data={item}
                   onClick={() => this.musicClick(item, index)}
                   rightComponent={rightComponent(item, index)}

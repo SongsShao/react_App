@@ -11,13 +11,15 @@ class Mp3List extends React.Component {
     state
 
     render() {
-      const { data, onClick, rightComponent, rightClick } = this.props
+      const { data, onClick, rightComponent, rightClick, onTouchStart } = this.props
       return (
         <List.Item className={style.Mp3List}
           arrow='empty'
           multipleLine
           platform='android'
           onClick={() => console.log('点击事件')}
+          //   onTouchStart={onTouchStart}
+          onTouchStart={() => { this.longPressItemTimeout = setTimeout(onTouchStart, 1000) }}
         >
           <Flex>
             <div style={{ width: '80%', height: '50px', paddingTop: '4px' }}
